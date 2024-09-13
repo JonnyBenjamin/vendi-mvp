@@ -7,7 +7,8 @@
       "price": 3.50,
       "location": "New York, USA",
       "ecoFriendly": false,
-      "rating": 4.7
+      "rating": 4.7,
+      "image": "https://example.com/images/chicken-breast.jpg"
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "price": 3.45,
       "location": "Chicago, USA",
       "ecoFriendly": true,
-      "rating": 4.6
+      "rating": 4.6,
+      "imageURL": "https://via.placeholder.com/50"
     },
     {
       "id": 3,
@@ -25,7 +27,8 @@
       "price": 3.60,
       "location": "Houston, USA",
       "ecoFriendly": false,
-      "rating": 4.5
+      "rating": 4.5,
+      "image": "https://example.com/images/chicken-breast.jpg"
     },
     {
       "id": 4,
@@ -34,7 +37,8 @@
       "price": 3.55,
       "location": "Los Angeles, USA",
       "ecoFriendly": true,
-      "rating": 4.4
+      "rating": 4.4,
+      "image": "https://example.com/images/chicken-breast.jpg"
     },
     {
       "id": 5,
@@ -43,16 +47,18 @@
       "price": 3.70,
       "location": "Miami, USA",
       "ecoFriendly": false,
-      "rating": 4.6
+      "rating": 4.6,
+      "image": "https://example.com/images/chicken-breast.jpg"
     },
     {
       "id": 6,
-      "name": "Ground Beef",
+      "name": "Ground Ass",
       "vendor": "Sysco",
       "price": 5.75,
       "location": "New York, USA",
       "ecoFriendly": true,
-      "rating": 4.8
+      "rating": 4.8,
+      "image": "https://example.com/images/ground-beef.jpg"
     },
     {
       "id": 7,
@@ -61,7 +67,8 @@
       "price": 5.80,
       "location": "Los Angeles, USA",
       "ecoFriendly": false,
-      "rating": 4.6
+      "rating": 4.6,
+      "image": "https://example.com/images/ground-beef.jpg"
     },
     {
       "id": 8,
@@ -70,7 +77,8 @@
       "price": 5.90,
       "location": "Houston, USA",
       "ecoFriendly": true,
-      "rating": 4.7
+      "rating": 4.7,
+      "image": "https://example.com/images/ground-beef.jpg"
     },
     {
       "id": 9,
@@ -79,7 +87,8 @@
       "price": 2.50,
       "location": "New York, USA",
       "ecoFriendly": true,
-      "rating": 4.7
+      "rating": 4.7,
+      "image": "https://example.com/images/whole-milk.jpg"
     },
     {
       "id": 10,
@@ -88,7 +97,8 @@
       "price": 2.45,
       "location": "Chicago, USA",
       "ecoFriendly": true,
-      "rating": 4.6
+      "rating": 4.6,
+      "image": "https://example.com/images/whole-milk.jpg"
     },
     {
       "id": 11,
@@ -97,7 +107,8 @@
       "price": 2.60,
       "location": "Miami, USA",
       "ecoFriendly": false,
-      "rating": 4.5
+      "rating": 4.5,
+      "image": "https://example.com/images/whole-milk.jpg"
     },
     {
       "id": 12,
@@ -106,7 +117,8 @@
       "price": 2.55,
       "location": "Los Angeles, USA",
       "ecoFriendly": false,
-      "rating": 4.4
+      "rating": 4.4,
+      "image": "https://example.com/images/whole-milk.jpg"
     },
     {
       "id": 13,
@@ -115,7 +127,8 @@
       "price": 1.30,
       "location": "New York, USA",
       "ecoFriendly": true,
-      "rating": 4.9
+      "rating": 4.9,
+      "image": "https://example.com/images/sparkling-water.jpg"
     },
     {
       "id": 14,
@@ -124,7 +137,8 @@
       "price": 1.25,
       "location": "Chicago, USA",
       "ecoFriendly": true,
-      "rating": 4.7
+      "rating": 4.7,
+      "image": "https://example.com/images/sparkling-water.jpg"
     },
     {
       "id": 15,
@@ -133,16 +147,18 @@
       "price": 1.35,
       "location": "Houston, USA",
       "ecoFriendly": false,
-      "rating": 4.8
+      "rating": 4.8,
+      "image": "https://cdn.shoplightspeed.com/shops/609238/files/3191564/san-pellegrino-sparkling-water-750-ml.jpg"
     },
     {
       "id": 16,
-      "name": "water",
+      "name": "Water",
       "vendor": "Whole Foods",
       "price": 1.40,
       "location": "Miami, USA",
       "ecoFriendly": true,
-      "rating": 4.9
+      "rating": 4.9,
+      "image": "https://example.com/images/water.jpg"
     }
   ]
 }

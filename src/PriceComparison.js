@@ -156,7 +156,7 @@ function PriceComparison() {
   return (
     <div className="container mt-4">
       <div className="text-center mb-4">
-        <h1 className="display-4">Keiro</h1>
+        <h1 className="display-4">Vendr</h1>
         <p className="lead">Compare prices and find the best deals across multiple vendors.</p>
       </div>
 
@@ -254,6 +254,7 @@ function PriceComparison() {
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
+                  <th>Image</th>
                   <th>Product</th>
                   <th>Price ($)</th>
                   <th>Quantity</th>
@@ -267,6 +268,19 @@ function PriceComparison() {
               <tbody>
                 {groupedProducts[vendorName].map((item) => (
                   <tr key={item.id}>
+                    <td>
+                      {item.imageURL ? (
+                        <img 
+                          src={item.imageURL} 
+                          alt={item.name} 
+                          style={{ width: '50px', height: '50px', objectFit: 'cover' }} 
+                        />
+                      ) : (
+                        <div style={{ width: '50px', height: '50px', backgroundColor: '#ccc' }}>
+                          Pepto
+                        </div>
+                      )}
+                    </td>
                     <td>{item.name}</td>
                     <td>{item.price.toFixed(2)}</td>
                     <td>{item.quantity}</td>
