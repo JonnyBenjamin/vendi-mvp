@@ -1,0 +1,148 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Chicken Breast",
+      "vendor": "Sysco",
+      "price": 3.50,
+      "location": "New York, USA",
+      "ecoFriendly": false,
+      "rating": 4.7
+    },
+    {
+      "id": 2,
+      "name": "Chicken Breast",
+      "vendor": "US Foods",
+      "price": 3.45,
+      "location": "Chicago, USA",
+      "ecoFriendly": true,
+      "rating": 4.6
+    },
+    {
+      "id": 3,
+      "name": "Chicken Breast",
+      "vendor": "Gordon Food Service",
+      "price": 3.60,
+      "location": "Houston, USA",
+      "ecoFriendly": false,
+      "rating": 4.5
+    },
+    {
+      "id": 4,
+      "name": "Chicken Breast",
+      "vendor": "Costco",
+      "price": 3.55,
+      "location": "Los Angeles, USA",
+      "ecoFriendly": true,
+      "rating": 4.4
+    },
+    {
+      "id": 5,
+      "name": "Chicken Breast",
+      "vendor": "Publix",
+      "price": 3.70,
+      "location": "Miami, USA",
+      "ecoFriendly": false,
+      "rating": 4.6
+    },
+    {
+      "id": 6,
+      "name": "Ground Beef",
+      "vendor": "Sysco",
+      "price": 5.75,
+      "location": "New York, USA",
+      "ecoFriendly": true,
+      "rating": 4.8
+    },
+    {
+      "id": 7,
+      "name": "Ground Beef",
+      "vendor": "US Foods",
+      "price": 5.80,
+      "location": "Los Angeles, USA",
+      "ecoFriendly": false,
+      "rating": 4.6
+    },
+    {
+      "id": 8,
+      "name": "Ground Beef",
+      "vendor": "Gordon Food Service",
+      "price": 5.90,
+      "location": "Houston, USA",
+      "ecoFriendly": true,
+      "rating": 4.7
+    },
+    {
+      "id": 9,
+      "name": "Whole Milk",
+      "vendor": "Sysco",
+      "price": 2.50,
+      "location": "New York, USA",
+      "ecoFriendly": true,
+      "rating": 4.7
+    },
+    {
+      "id": 10,
+      "name": "Whole Milk",
+      "vendor": "US Foods",
+      "price": 2.45,
+      "location": "Chicago, USA",
+      "ecoFriendly": true,
+      "rating": 4.6
+    },
+    {
+      "id": 11,
+      "name": "Whole Milk",
+      "vendor": "Kroger",
+      "price": 2.60,
+      "location": "Miami, USA",
+      "ecoFriendly": false,
+      "rating": 4.5
+    },
+    {
+      "id": 12,
+      "name": "Whole Milk",
+      "vendor": "Costco",
+      "price": 2.55,
+      "location": "Los Angeles, USA",
+      "ecoFriendly": false,
+      "rating": 4.4
+    },
+    {
+      "id": 13,
+      "name": "Sparkling Water",
+      "vendor": "Sysco",
+      "price": 1.30,
+      "location": "New York, USA",
+      "ecoFriendly": true,
+      "rating": 4.9
+    },
+    {
+      "id": 14,
+      "name": "Sparkling Water",
+      "vendor": "US Foods",
+      "price": 1.25,
+      "location": "Chicago, USA",
+      "ecoFriendly": true,
+      "rating": 4.7
+    },
+    {
+      "id": 15,
+      "name": "Sparkling Water",
+      "vendor": "Gordon Food Service",
+      "price": 1.35,
+      "location": "Houston, USA",
+      "ecoFriendly": false,
+      "rating": 4.8
+    },
+    {
+      "id": 16,
+      "name": "water",
+      "vendor": "Whole Foods",
+      "price": 1.40,
+      "location": "Miami, USA",
+      "ecoFriendly": true,
+      "rating": 4.9
+    }
+  ]
+}
