@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { jsPDF } from 'jspdf';
+import './App.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import Modal from 'react-modal';
+import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 function PriceComparison() {
@@ -9,6 +13,7 @@ function PriceComparison() {
   const [cart, setCart] = useState([]);
   const [filterEcoFriendly, setFilterEcoFriendly] = useState(false);
   const [sortOption, setSortOption] = useState('priceAsc');
+  const [showCart, setShowCart] = useState(false);
 
   const handleSearch = () => {
     const trimmedSearchTerm = searchTerm.trim();
@@ -50,10 +55,10 @@ function PriceComparison() {
 
   const groupByProduct = (products) => {
     return products.reduce((grouped, product) => {
-      if (!grouped[product.name]) {
-        grouped[product.name] = [];
+      if (!grouped[product.vendor]) {
+        grouped[product.vendor] = [];
       }
-      grouped[product.name].push(product);
+      grouped[product.vendor].push(product);
       return grouped;
     }, {});
   };
@@ -83,69 +88,70 @@ function PriceComparison() {
 
   const exportToPDF = () => {
     const doc = new jsPDF();
-    const tableColumn = ["Item", "Vendor", "Price", "Quantity", "Total"];
 
-    const tableRows = cart.map(item => [
-      item.name,
-      item.vendor,
-      `$${item.price.toFixed(2)}`,
-      item.quantity,
-      `$${(item.price * item.quantity).toFixed(2)}`
-    ]);
+    // Header information
+    const invoiceNumber = 'INV-123456';
+    const date = new Date().toLocaleDateString();
+    const deliveryNumber = 'DEL-789012';
+    const orderNumber = 'ORD-345678';
 
-    // Add Invoice Header
-    doc.setFontSize(18);
-    doc.text("Keiro Invoice", 14, 22);
-    
-    // Add Subtitles for Invoice Data
+    // Adding Invoice details at the top of the PDF
+    doc.setFontSize(14);
+    doc.text('Invoice', 14, 20);
     doc.setFontSize(12);
-    doc.text(`Invoice Number: #12345`, 14, 32);
-    doc.text(`Date: ${new Date().toLocaleDateString()}`, 14, 38);
-    doc.text(`Order Number: ORD-56789`, 14, 44);
-    doc.text(`Delivery Number: DEL-98765`, 14, 50);
+    doc.text(`Invoice Number: ${invoiceNumber}`, 14, 30);
+    doc.text(`Date: ${date}`, 14, 40);
+    doc.text(`Delivery Number: ${deliveryNumber}`, 14, 50);
+    doc.text(`Order Number: ${orderNumber}`, 14, 60);
 
-    // Draw the table with custom styles
-    doc.autoTable({
-      head: [tableColumn],
-      body: tableRows,
-      startY: 60,
-      theme: 'striped',
-      styles: {
-        halign: 'center',
-        valign: 'middle',
-        fontSize: 10,
-        cellPadding: 4,
-        textColor: [0, 0, 0],
-      },
-      headStyles: {
-        fillColor: [52, 152, 219],
-        textColor: [255, 255, 255],
-        fontSize: 12,
-      },
+    const tableData = [];
+    const groupedItems = {};
+
+    // Grouping items by vendor
+    cart.forEach(item => {
+      if (!groupedItems[item.vendor]) {
+        groupedItems[item.vendor] = [];
+      }
+      groupedItems[item.vendor].push(item);
     });
 
-    const subtotal = calculateSubtotal();
-    const tax = subtotal * 0.08;
-    const delivery = 112;
-    const discount = (subtotal + delivery) * 0.03;
-    const total = calculateTotalCost().toFixed(2);
+    // Adding grouped items to tableData
+    Object.keys(groupedItems).forEach(vendor => {
+      tableData.push([`${vendor}`]);
+      groupedItems[vendor].forEach(item => {
+        tableData.push([item.name, item.quantity, item.price.toFixed(2), (item.price * item.quantity).toFixed(2)]);
+      });
+    });
 
-    // Add summary and totals
-    doc.text(`Subtotal: $${subtotal.toFixed(2)}`, 14, doc.lastAutoTable.finalY + 10);
-    doc.text(`Tax (8%): $${tax.toFixed(2)}`, 14, doc.lastAutoTable.finalY + 16);
-    doc.text(`Delivery Fee: $${delivery.toFixed(2)}`, 14, doc.lastAutoTable.finalY + 22);
-    doc.text(`Discount (3%): -$${discount.toFixed(2)}`, 14, doc.lastAutoTable.finalY + 28);
-    doc.text(`Total: $${total}`, 14, doc.lastAutoTable.finalY + 34);
+    // Adding table to the PDF
+    doc.autoTable({
+      head: [['Product', 'Quantity', 'Unit Price ($)', 'Total ($)']],
+      body: tableData,
+      startY: 70,
+    });
 
-    // Footer
-    doc.setFontSize(10);
-    doc.text('Thank you for your order!', 14, doc.lastAutoTable.finalY + 50);
+    // Adding subtotal, tax, and total at the bottom
+    doc.text(`Subtotal: $${calculateSubtotal().toFixed(2)}`, 14, doc.lastAutoTable.finalY + 10);
+    doc.text(`Tax (8%): $${(calculateSubtotal() * 0.08).toFixed(2)}`, 14, doc.lastAutoTable.finalY + 20);
+    doc.text('Delivery: $112.00', 14, doc.lastAutoTable.finalY + 30);
+    doc.text(`Discount (3%): -$${((calculateSubtotal() + 112) * 0.03).toFixed(2)}`, 14, doc.lastAutoTable.finalY + 40);
+    doc.text(`Total Cost: $${calculateTotalCost().toFixed(2)}`, 14, doc.lastAutoTable.finalY + 50);
 
-    // Save the PDF
-    doc.save("Keiro_Invoice.pdf");
+    doc.save('order-summary.pdf');
   };
 
   const groupedProducts = groupByProduct(filteredResults);
+
+  const modalStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      transform: 'translate(-50%, -50%)',
+      width: '400px',
+    },
+  };
 
   return (
     <div className="container mt-4">
@@ -154,6 +160,38 @@ function PriceComparison() {
         <p className="lead">Compare prices and find the best deals across multiple vendors.</p>
       </div>
 
+      {/* Cart Icon aligned with the search bar */}
+      {filteredResults.length > 0 && (
+        <div className="cart-icon" style={{ position: 'fixed', right: '20px', top: '120px' }} onClick={() => setShowCart(true)}>
+          <FontAwesomeIcon icon={faShoppingCart} size="2x" />
+          <span className="cart-count">{cart.length}</span>
+        </div>
+      )}
+
+      {/* Cart Modal */}
+      <Modal isOpen={showCart} onRequestClose={() => setShowCart(false)} style={modalStyles}>
+        <h4>Your Cart</h4>
+        {cart.length > 0 ? (
+          <ul>
+            {cart.map((item, index) => (
+              <li key={index}>
+                {item.name} from {item.vendor} - ${item.price.toFixed(2)} x {item.quantity}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>Your cart is empty.</p>
+        )}
+        <p>Subtotal: ${calculateSubtotal().toFixed(2)}</p>
+        <p>Tax (8%): ${(calculateSubtotal() * 0.08).toFixed(2)}</p>
+        <p>Delivery: $112.00</p>
+        <p>Discount (3%): -${((calculateSubtotal() + 112) * 0.03).toFixed(2)}</p>
+        <p><strong>Total Cost: ${calculateTotalCost().toFixed(2)}</strong></p>
+        <button onClick={() => setShowCart(false)} className="btn btn-secondary">Close</button>
+        <button onClick={exportToPDF} className="btn btn-primary mt-2">Export to PDF</button>
+      </Modal>
+
+      {/* Centered Search Bar */}
       <div className="row justify-content-center mb-4">
         <div className="col-md-6">
           <input
@@ -210,14 +248,16 @@ function PriceComparison() {
 
       {/* Product Results Table */}
       {Object.keys(groupedProducts).length > 0 ? (
-        Object.keys(groupedProducts).map((productName) => (
-          <div key={productName} className="mb-5">
-            <h3>{productName}</h3>
+        Object.keys(groupedProducts).map((vendorName) => (
+          <div key={vendorName} className="mb-5">
+            <h3>{vendorName}</h3>
             <table className="table table-striped table-hover">
               <thead>
                 <tr>
-                  <th>Vendor</th>
+                  <th>Product</th>
                   <th>Price ($)</th>
+                  <th>Quantity</th>
+                  <th>Total ($)</th>
                   <th>Location</th>
                   <th>Eco-Friendly</th>
                   <th>Rating</th>
@@ -225,10 +265,12 @@ function PriceComparison() {
                 </tr>
               </thead>
               <tbody>
-                {groupedProducts[productName].map((item) => (
+                {groupedProducts[vendorName].map((item) => (
                   <tr key={item.id}>
-                    <td>{item.vendor}</td>
+                    <td>{item.name}</td>
                     <td>{item.price.toFixed(2)}</td>
+                    <td>{item.quantity}</td>
+                    <td>{(item.price * item.quantity).toFixed(2)}</td>
                     <td>{item.location}</td>
                     <td>{item.ecoFriendly ? 'Yes' : 'No'}</td>
                     <td>{item.rating}</td>
@@ -249,11 +291,6 @@ function PriceComparison() {
       ) : (
         <p>No products found matching your search.</p>
       )}
-
-      {/* Export to PDF Button */}
-      <div className="text-center mt-5">
-        <button onClick={exportToPDF} className="btn btn-success">Export your Order Summary</button>
-      </div>
     </div>
   );
 }
